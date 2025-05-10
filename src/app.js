@@ -3,6 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import examRoutes from '../routes/examRoute.js';
 import resultRoutes from '../routes/resultRoutes.js';
+import erpRoutes from '../routes/erpRoutes.js';
 
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api', examRoutes);
 app.use('/api', resultRoutes);
+app.use('/api', erpRoutes)
 
 app.listen(PORT, () => { 
     console.log(`Server is running on port ${PORT}`);

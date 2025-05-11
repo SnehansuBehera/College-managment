@@ -1,4 +1,4 @@
-import { supabase } from "../config/supabse-config.js";
+import { supabase } from "../config/supabase.js";
 
 export const createExams = async (req, res) => {
     try {

@@ -1,4 +1,4 @@
-import * as Course from '../College-managment/models/courseModel.js';
+import * as Course from '../models/courseModel.js';
 
 export const listCourses = async (req, res, next) => {
   const { data, error } = await Course.getCourses();
@@ -17,7 +17,7 @@ export const updateCourse = async (req, res, next) => {
   const { id } = req.params;
   const { data, error } = await Course.updateCourse(id, req.body);
   if (error) return next(error);
-  res.json(data);
+  res.json(data);  
 };
 
 export const deleteCourse = async (req, res, next) => {

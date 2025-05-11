@@ -4,8 +4,10 @@ import bodyParser from 'body-parser';
 import examRoutes from '../routes/examRoute.js';
 import resultRoutes from '../routes/resultRoutes.js';
 import erpRoutes from '../routes/erpRoutes.js';
-import adminRoutes from '../../routes/adminRoutes.js';
-import attendanceRoutes from '../../routes/attendanceRoutes.js';
+import adminRoutes from '../routes/adminRoutes.js';
+import attendanceRoutes from '../routes/attendanceRoutes.js';
+
+
 import { errorHandler } from '../utils/utils.js';
 
 const app = express();

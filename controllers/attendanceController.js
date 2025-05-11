@@ -1,4 +1,4 @@
-import { markAttendance, onAttendanceChange } from '../College-managment/models/attendanceModel.js';
+import { markAttendance, onAttendanceChange } from '../models/attendanceModel.js';
 import { supabase } from '../config/supabase.js';
 
 /**

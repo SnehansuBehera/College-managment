@@ -1,9 +1,16 @@
 import express from 'express';
-import { erpRegistration } from '../controllers/erpController.js';
+import { erpRegistration, getAllRegistrations, getRegistrationById, getRegistrationsBySemester, getRegistrationsByStudent, getRegistrationByStudentAndSemester, modifySubjects, deleteAllRegistrations, deleteRegistrationById } from '../controllers/erpController.js';
 
 const router = express.Router();
 
 router.post('/erp', erpRegistration);
-
+router.get('/erp/all', getAllRegistrations);
+router.get('/erp/:id', getRegistrationById)
+router.get("/erp/sem/:semester", getRegistrationsBySemester)
+router.get("/erp/reg/:reg_no", getRegistrationsByStudent)
+router.get("/erp/:reg_no/:semester", getRegistrationByStudentAndSemester);
+router.put('/erp/:id', modifySubjects);
+router.delete('/erp/delete/all', deleteAllRegistrations);
+router.delete('/exam-registrations/:id', deleteRegistrationById);
 
 export default router;

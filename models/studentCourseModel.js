@@ -7,10 +7,10 @@ export const getStudentCourses = () =>
     .order('student_id', { ascending: true })
     .order('semester', { ascending: true });
 
-export const enrollStudentCourse = ({ student_id, subject_ids, semester }) =>
+export const enrollStudentCourse = ({ reg_no, subject_ids, semester }) =>
   supabase
     .from('student_course')
-    .insert([{ student_id, subject_ids, semester }]);
+    .insert([{ reg_no, subject_ids, semester }]);
 
 export const updateStudentCourse = (id, changes) =>
   supabase

@@ -5,45 +5,54 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const { data: user } = await supabase
-      .from('users')
-      .select('*')
-      .eq('email', email)
+    // 1. Get user from users table
+    const { data: user, error: userError } = await supabase
+      .from("users")
+      .select("*")
+      .eq("email", email)
       .single();
 
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+    if (userError || !user) {
+      return res.status(404).json({ error: "User not found" });
     }
 
-    // Check if password is hashed or plain text
+    // 2. Verify password
     let isValid = false;
-    if (user.password.startsWith('$2b$')) {
+    if (user.password.startsWith("$2b$")) {
       isValid = await bcrypt.compare(password, user.password);
     } else {
       isValid = password === user.password;
     }
 
     if (!isValid) {
-      return res.status(401).json({ error: 'Invalid password' });
+      return res.status(401).json({ error: "Invalid password" });
     }
 
-    const { data: userDetails } = await supabase
-      .from(`${user.role}s`)
-      .select('*')
-      .eq('id', user.id)
+    // 3. Get role-specific data (e.g., from professors or students table)
+    const { data: userDetails, error: detailError } = await supabase
+      .from(`${user.role}s`) // e.g., 'professors'
+      .select("*")
+      .eq("id", user.id)
       .single();
 
+    if (detailError || !userDetails) {
+      return res.status(404).json({ error: "Role-specific data not found" });
+    }
+
+    // 4. Merge both user and userDetails
     return res.status(200).json({
-      message: 'Login successful',
+      message: "Login successful",
       user: {
-        ...userDetails,
-        role: user.role
-      }
+        ...user,
+        ...userDetails, // role-specific details
+        role: user.role,
+      },
     });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 };
+
 
 export const changePassword = async (req, res) => {
   const { email, oldPassword, newPassword } = req.body;

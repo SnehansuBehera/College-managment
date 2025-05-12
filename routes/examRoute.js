@@ -4,7 +4,8 @@ import {
     getAllExams,
     getExamById,
     updateExam,
-    deleteExam
+    deleteExam,
+    getStudentGrades
 } from '../controllers/examController.js';
 
 const router = express.Router();
@@ -14,5 +15,5 @@ router.get('/exams/all', getAllExams);
 router.get('/exams/:id', getExamById);
 router.put('/exams/update/:id', updateExam);
 router.delete('/exams/delete/:id', deleteExam);
-
+router.post('/results', getStudentGrades)
 export default router;

@@ -7,10 +7,13 @@ export const getProfessorCourses = () =>
     .order('prof_id', { ascending: true })
     .order('semester', { ascending: true });
 
-export const assignProfessorCourse = ({ prof_id, subject_id, semester }) =>
-  supabase
+export const assignProfessorCourse = async ({ prof_id, subject_id, semester }) => {
+  const {data, error} = await supabase
     .from('professor_course')
     .insert([{ prof_id, subject_id, semester }]);
+  return {data, error};
+}
+  
 
 export const updateProfessorCourse = (id, changes) =>
   supabase
